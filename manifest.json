@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "Inf 04 Odpowiedzi",
+  "version": "1.0",
+
+  "description": "Highlights the correct answers in the Inf 04 quiz",
+
+  "icons": {
+    "48": "icons/i48.png",
+    "96": "icons/i96.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.egzamin-programista.pl/jedno-pytanie-inf04-projektowanie-programowanie-i-testowanie-aplikacji/*"
+      ],
+      "js": ["src/inf04.js"]
+    }
+  ],
+
+  "permissions": ["https://inf04.nigdit.men/*", "storage"],
+
+  "options_ui": {
+    "page": "src/pages/options.html",
+    "chrome_style": true,
+    "browser_style": true
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "inf04ext@inf04.nigdit.men"
+    }
+  }
+}

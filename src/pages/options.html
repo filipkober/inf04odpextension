@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html,
+      body {
+        height: 300px;
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        font-family: sans-serif;
+        font-size: 1.2em;
+        margin: 1em;
+        background-color: rgb(34, 33, 41);
+        color: white;
+        height: 100%;
+        background-size: cover;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5em;
+      }
+      input {
+        margin-right: 0.5em;
+      }
+      h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5em;
+      }
+      .flex {
+        display: flex;
+        flex-direction: row;
+      }
+      .smallMarginLeft {
+        margin-left: 2em;
+      }
+      button {
+        margin-top: 1em;
+        padding: 0.5em;
+        background-color: rgb(34, 33, 41);
+        color: white;
+        border: 1px solid white;
+        border-radius: 0.5em;
+        font-size: 1em;
+        transition: ease-in-out 0.15s;
+      }
+      button:hover {
+        background-color: rgb(255, 255, 255);
+        color: rgb(34, 33, 41);
+        cursor: pointer;
+      }
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        position: relative;
+      }
+      label {
+        display: inline-block;
+        margin-bottom: 0.5em;
+      }
+      button:active {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Options</h1>
+    <div class="optionsContainer">
+      <div class="flex">
+        <label for="clickButtons">
+        <span>Click buttons instead of labeling them as correct?</span>
+        <input
+        type="checkbox"
+        id="clickButtons"
+        name="clickButtons"
+        class="smallMarginLeft"
+      />
+        </label>
+      </div>
+      <button type="submit">Save</button>
+      <script src="loadOptions.js"></script>
+    </div>
+  </body>
+</html>
