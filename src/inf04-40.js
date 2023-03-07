@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 fetch("https://inf04.nigdit.men/api/questions").then(function (res) { return res.json(); }).then(function (data) { return __awaiter(void 0, void 0, void 0, function () {
-    var clickButtons, highlightColor, delay, newButton;
+    var clickButtons, highlightColor, delay;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, browser.storage.sync.get('clickButtons').then(function (res) { return res.clickButtons; })];
@@ -48,56 +48,51 @@ fetch("https://inf04.nigdit.men/api/questions").then(function (res) { return res
                 return [4 /*yield*/, browser.storage.sync.get('delay').then(function (res) { return res.delay; })];
             case 3:
                 delay = _a.sent();
-                newButton = document.querySelector('#losujnowe');
-                if (!newButton)
-                    throw new Error('Brak przycisku');
-                setTimeout(function () { return nowePytanie(data, { clickButtons: clickButtons || false, highlightColor: highlightColor || "#008000", delay: delay || 1000 }); }, delay || 1000);
+                setTimeout(function () { return zaznaczPytania(data, { clickButtons: clickButtons || false, highlightColor: highlightColor || "#008000" }); }, delay || 1000);
                 return [2 /*return*/];
         }
     });
 }); }).catch(function (err) { return console.error(err); });
-var nowePytanie = function (odpowiedzi, _a) {
-    var _b = _a.clickButtons, clickButtons = _b === void 0 ? false : _b, _c = _a.highlightColor, highlightColor = _c === void 0 ? "#008000" : _c, _d = _a.delay, delay = _d === void 0 ? 1000 : _d;
+var zaznaczPytania = function (odpowiedzi, _a) {
+    var _b = _a.clickButtons, clickButtons = _b === void 0 ? false : _b, _c = _a.highlightColor, highlightColor = _c === void 0 ? "#008000" : _c;
     return __awaiter(void 0, void 0, void 0, function () {
-        var obecnePytania, odpowiedzA, odpowiedzB, odpowiedzC, odpowiedzD, obecnePytanie, wszystkieOdp, odpowiedz, looseSearch, _i, wszystkieOdp_1, ans, htmlAns;
-        return __generator(this, function (_e) {
-            if (!(!!odpowiedzi))
-                throw new Error('[ROZSZERZENIE]: Brak odpowiedzi');
-            obecnePytania = document.querySelector('.tresc');
-            odpowiedzA = document.querySelector('#odpa');
-            odpowiedzB = document.querySelector('#odpb');
-            odpowiedzC = document.querySelector('#odpc');
-            odpowiedzD = document.querySelector('#odpd');
-            if (!obecnePytania || !odpowiedzA || !odpowiedzB || !odpowiedzC || !odpowiedzD)
-                throw new Error('[ROZSZERZENIE]: Brak pytania lub odpowiedzi');
-            obecnePytanie = obecnePytania.textContent;
-            if (!obecnePytanie)
-                throw new Error('[ROZSZERZENIE]: Brak pytania');
-            wszystkieOdp = [odpowiedzA, odpowiedzB, odpowiedzC, odpowiedzD];
-            odpowiedz = odpowiedzi.find(function (pytanie) { return pytanie.tresc.toLowerCase().includes(obecnePytanie.toLowerCase()); });
-            if (!odpowiedz && !document.querySelector('.odpgood')) {
-                console.warn('[ROZSZERZENIE]: Nie znaleziono odpowiedzi na pytanie: ' + obecnePytanie);
-                looseSearch = odpowiedzi.find(function (pytanie) { return pytanie.tresc.substring(0, 10) === obecnePytanie.substring(0, 10); });
-                console.log('[ROZSZERZENIE]: Szukanie w miarę dopasowanej odpowiedzi: ' + (looseSearch === null || looseSearch === void 0 ? void 0 : looseSearch.tresc));
-                if (!(looseSearch === null || looseSearch === void 0 ? void 0 : looseSearch.odpowiedz)) {
-                    return [2 /*return*/, setTimeout(nowePytanie, delay, odpowiedzi, clickButtons)];
+        var pytania, _loop_1, i;
+        var _d, _e;
+        return __generator(this, function (_f) {
+            pytania = document.querySelectorAll('.trescE');
+            _loop_1 = function (i) {
+                var elementPytanie = pytania[i - 1];
+                var odpowiedzA = document.querySelector("#odpa".concat(i));
+                var odpowiedzB = document.querySelector("#odpb".concat(i));
+                var odpowiedzC = document.querySelector("#odpc".concat(i));
+                var odpowiedzD = document.querySelector("#odpd".concat(i));
+                if (!elementPytanie || !odpowiedzA || !odpowiedzB || !odpowiedzC || !odpowiedzD)
+                    throw new Error('[ROZSZERZENIE]: Brak pytania lub odpowiedzi');
+                var trescPytania = (_d = elementPytanie.textContent) === null || _d === void 0 ? void 0 : _d.slice(3);
+                var odpowiedzNaPytanie = odpowiedzi.find(function (p) { return trescPytania === null || trescPytania === void 0 ? void 0 : trescPytania.toLowerCase().includes(p.tresc.toLowerCase()); });
+                if (!odpowiedzNaPytanie) {
+                    var pierwsze10Znakow_1 = trescPytania === null || trescPytania === void 0 ? void 0 : trescPytania.substring(5, 15).toLowerCase();
+                    console.warn("[ROZSZERZENIE]: Nie znaleziono odpowiedzi na pytanie, szukam w miarę dopasowanej odpowiedzi");
+                    odpowiedzNaPytanie = odpowiedzi.find(function (q) { return q.tresc.toLowerCase().includes(pierwsze10Znakow_1 || ''); });
                 }
-                odpowiedz = looseSearch;
-            }
-            for (_i = 0, wszystkieOdp_1 = wszystkieOdp; _i < wszystkieOdp_1.length; _i++) {
-                ans = wszystkieOdp_1[_i];
-                if (ans.textContent && ans.textContent.toLowerCase().slice(3) == (odpowiedz === null || odpowiedz === void 0 ? void 0 : odpowiedz.odpowiedz.toLowerCase()) && ans.className != 'odpgood') {
-                    htmlAns = ans;
-                    if (clickButtons) {
-                        htmlAns.click();
-                    }
-                    else {
-                        htmlAns.style.backgroundColor = highlightColor;
-                        htmlAns.textContent += ' (kliknij w to)';
+                if (!odpowiedzNaPytanie)
+                    throw new Error('[ROZSZERZENIE]: Nie znaleziono odpowiedzi na pytanie');
+                var odpowiedziNaPytanie = [odpowiedzA, odpowiedzB, odpowiedzC, odpowiedzD];
+                for (var _i = 0, odpowiedziNaPytanie_1 = odpowiedziNaPytanie; _i < odpowiedziNaPytanie_1.length; _i++) {
+                    var odpowiedz = odpowiedziNaPytanie_1[_i];
+                    if (((_e = odpowiedz.textContent) === null || _e === void 0 ? void 0 : _e.slice(3).toLowerCase().trim()) === odpowiedzNaPytanie.odpowiedz.toLowerCase().trim()) {
+                        if (clickButtons) {
+                            odpowiedz.click();
+                        }
+                        else {
+                            odpowiedz.style.backgroundColor = highlightColor;
+                        }
                     }
                 }
+            };
+            for (i = 1; i <= pytania.length; i++) {
+                _loop_1(i);
             }
-            setTimeout(nowePytanie, delay, odpowiedzi, clickButtons);
             return [2 /*return*/];
         });
     });

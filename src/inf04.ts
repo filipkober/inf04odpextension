@@ -3,14 +3,17 @@ type Pytanie = {
     odpowiedz: string,
     zdjecie?: string,
 }
+
 fetch("https://inf04.nigdit.men/api/questions").then((res) => res.json()).then( async (data: Pytanie[]) => {
     const clickButtons = await browser.storage.sync.get('clickButtons').then((res) => res.clickButtons);
+    const highlightColor = await browser.storage.sync.get('highlightColor').then((res) => res.highlightColor);
+    const delay = await browser.storage.sync.get('delay').then((res) => res.delay);
     const newButton = document.querySelector('#losujnowe');
     if(!newButton) throw new Error('Brak przycisku');
-    setTimeout(() => nowePytanie(data, clickButtons || false), 1000)
+    setTimeout(() => nowePytanie(data, {clickButtons: clickButtons || false, highlightColor: highlightColor || "#008000", delay: delay || 1000}), delay || 1000)
 }).catch((err) => console.error(err));
 
-const nowePytanie = async (odpowiedzi: Pytanie[], clickButtons = false) => {
+const nowePytanie = async (odpowiedzi: Pytanie[], {clickButtons = false, highlightColor = "#008000", delay = 1000}) => {
     if(!(!!odpowiedzi)) throw new Error('[ROZSZERZENIE]: Brak odpowiedzi')
     const obecnePytania = document.querySelector('.tresc')
     const odpowiedzA = document.querySelector('#odpa')
@@ -28,7 +31,7 @@ const nowePytanie = async (odpowiedzi: Pytanie[], clickButtons = false) => {
         console.log('[ROZSZERZENIE]: Szukanie w miarę dopasowanej odpowiedzi: ' + looseSearch?.tresc);
         
         if(!looseSearch?.odpowiedz) {
-            return setTimeout(nowePytanie, 1000, odpowiedzi, clickButtons);
+            return setTimeout(nowePytanie, delay, odpowiedzi, clickButtons);
         }
         odpowiedz = looseSearch;
     }
@@ -38,10 +41,10 @@ const nowePytanie = async (odpowiedzi: Pytanie[], clickButtons = false) => {
             if(clickButtons) {
                 htmlAns.click();
             }else {
-                htmlAns.style.backgroundColor = 'green';
+                htmlAns.style.backgroundColor = highlightColor;
                 htmlAns.textContent += ' (kliknij w to)'
             }
         }
     }
-    setTimeout(nowePytanie, 1000, odpowiedzi, clickButtons);
+    setTimeout(nowePytanie, delay, odpowiedzi, clickButtons);
 }

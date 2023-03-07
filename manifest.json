@@ -3,7 +3,7 @@
   "name": "Inf 04 Odpowiedzi",
   "version": "1.0",
 
-  "description": "Highlights the correct answers in the Inf 04 quiz",
+  "description": "Odpowiedzi do quizu, nie gwarantuję 100% poprawności ale raczej powinno być git",
 
   "icons": {
     "48": "icons/i48.png",
@@ -16,6 +16,12 @@
         "*://*.egzamin-programista.pl/jedno-pytanie-inf04-projektowanie-programowanie-i-testowanie-aplikacji/*"
       ],
       "js": ["src/inf04.js"]
+    },
+    {
+      "matches": [
+        "*://*.egzamin-programista.pl/testy-inf04-projektowanie-programowanie-i-testowanie-aplikacji/*"
+      ],
+      "js": ["src/inf04-40.js"]
     }
   ],
 

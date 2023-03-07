@@ -73,13 +73,40 @@
     <div class="optionsContainer">
       <div class="flex">
         <label for="clickButtons">
-        <span>Click buttons instead of labeling them as correct?</span>
-        <input
-        type="checkbox"
-        id="clickButtons"
-        name="clickButtons"
-        class="smallMarginLeft"
-      />
+          <span>Klikać przyciski zamiast podświetlania?</span>
+          <input
+            type="checkbox"
+            id="clickButtons"
+            name="clickButtons"
+            class="smallMarginLeft"
+          />
+        </label>
+      </div>
+      <div class="flex">
+        <label for="highlightColor">
+          <span>Kolor podświetlania:</span>
+          <input
+            type="color"
+            id="highlightColor"
+            name="highlightColor"
+            class="smallMarginLeft"
+            value="#00ff00"
+          />
+        </label>
+      </div>
+      <div class="flex">
+        <label for="delay">
+          <span>Prędkość ładowania (zwiększyć jeśli powolny net):</span>
+          <input
+            type="number"
+            id="delay"
+            name="delay"
+            class="smallMarginLeft"
+            value="1000"
+            min="500"
+            max="10000"
+            placeholder="500-10000"
+          />
         </label>
       </div>
       <button type="submit">Save</button>
