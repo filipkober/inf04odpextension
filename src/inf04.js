@@ -80,7 +80,7 @@ var nowePytanie = function (odpowiedzi, _a) {
                 looseSearch = odpowiedzi.find(function (pytanie) { return pytanie.tresc.substring(0, 10) === obecnePytanie.substring(0, 10); });
                 console.log('[ROZSZERZENIE]: Szukanie w miarę dopasowanej odpowiedzi: ' + (looseSearch === null || looseSearch === void 0 ? void 0 : looseSearch.tresc));
                 if (!(looseSearch === null || looseSearch === void 0 ? void 0 : looseSearch.odpowiedz)) {
-                    return [2 /*return*/, setTimeout(nowePytanie, delay, odpowiedzi, clickButtons)];
+                    return [2 /*return*/, setTimeout(nowePytanie, delay, odpowiedzi, { clickButtons: clickButtons, highlightColor: highlightColor, delay: delay })];
                 }
                 odpowiedz = looseSearch;
             }
@@ -97,7 +97,7 @@ var nowePytanie = function (odpowiedzi, _a) {
                     }
                 }
             }
-            setTimeout(nowePytanie, delay, odpowiedzi, clickButtons);
+            setTimeout(nowePytanie, delay, odpowiedzi, { clickButtons: clickButtons, highlightColor: highlightColor, delay: delay });
             return [2 /*return*/];
         });
     });

@@ -31,7 +31,7 @@ const nowePytanie = async (odpowiedzi: Pytanie[], {clickButtons = false, highlig
         console.log('[ROZSZERZENIE]: Szukanie w miarę dopasowanej odpowiedzi: ' + looseSearch?.tresc);
         
         if(!looseSearch?.odpowiedz) {
-            return setTimeout(nowePytanie, delay, odpowiedzi, clickButtons);
+            return setTimeout(nowePytanie, delay, odpowiedzi, {clickButtons, highlightColor, delay});
         }
         odpowiedz = looseSearch;
     }
@@ -46,5 +46,5 @@ const nowePytanie = async (odpowiedzi: Pytanie[], {clickButtons = false, highlig
             }
         }
     }
-    setTimeout(nowePytanie, delay, odpowiedzi, clickButtons);
+    setTimeout(nowePytanie, delay, odpowiedzi, {clickButtons, highlightColor, delay});
 }

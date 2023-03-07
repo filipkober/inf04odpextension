@@ -1,7 +1,7 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Inf 04 Odpowiedzi",
-  "version": "1.0",
+  "version": "1.2.2",
 
   "description": "Odpowiedzi do quizu, nie gwarantuję 100% poprawności ale raczej powinno być git",
 
@@ -25,7 +25,8 @@
     }
   ],
 
-  "permissions": ["https://inf04.nigdit.men/*", "storage"],
+  "permissions": ["storage", "webRequest"],
+  "host_permissions": ["*://*.inf04.nigdit.men/*" , "*://*.egzamin-programista.pl/*" ],
 
   "options_ui": {
     "page": "src/pages/options.html",
