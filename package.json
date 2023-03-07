@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@types/firefox-webext-browser": "^111.0.0"
-  }
-}
